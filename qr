@@ -1,0 +1,190 @@
+-- MySQL Administrator dump 1.4
+--
+-- ------------------------------------------------------
+-- Server version	5.1.30-community
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+--
+-- Create schema qr
+--
+
+CREATE DATABASE IF NOT EXISTS qr;
+USE qr;
+
+--
+-- Definition of table `tbladmin`
+--
+
+DROP TABLE IF EXISTS `tbladmin`;
+CREATE TABLE `tbladmin` (
+  `adminid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `emailid` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  PRIMARY KEY (`adminid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbladmin`
+--
+
+/*!40000 ALTER TABLE `tbladmin` DISABLE KEYS */;
+INSERT INTO `tbladmin` (`adminid`,`emailid`,`password`) VALUES 
+ (1,'admin@gmail.com','Admin*121');
+/*!40000 ALTER TABLE `tbladmin` ENABLE KEYS */;
+
+
+--
+-- Definition of table `tblfollower`
+--
+
+DROP TABLE IF EXISTS `tblfollower`;
+CREATE TABLE `tblfollower` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `userid` int(10) unsigned NOT NULL,
+  `followerid` int(10) unsigned NOT NULL,
+  `status` varchar(45) NOT NULL,
+  `requestdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `responsedate` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_tblfollower_1` (`userid`),
+  KEY `FK_tblfollower_2` (`followerid`),
+  CONSTRAINT `FK_tblfollower_1` FOREIGN KEY (`userid`) REFERENCES `tbluser` (`userid`),
+  CONSTRAINT `FK_tblfollower_2` FOREIGN KEY (`followerid`) REFERENCES `tbluser` (`userid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblfollower`
+--
+
+/*!40000 ALTER TABLE `tblfollower` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tblfollower` ENABLE KEYS */;
+
+
+--
+-- Definition of table `tblmessage`
+--
+
+DROP TABLE IF EXISTS `tblmessage`;
+CREATE TABLE `tblmessage` (
+  `messageid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `senderid` int(10) unsigned DEFAULT NULL,
+  `pubmsg` varchar(500) DEFAULT NULL,
+  `QR` longblob NOT NULL,
+  `QR_path` varchar(500) NOT NULL,
+  `privmsg` varchar(500) DEFAULT NULL,
+  `msgtype` varchar(45) NOT NULL,
+  `msgdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `pubfile` longblob,
+  `pubfilepath` varchar(500) DEFAULT NULL,
+  `publongurl` varchar(400) DEFAULT NULL,
+  `pubshorturl` varchar(45) DEFAULT NULL,
+  `totalparts` int(10) unsigned NOT NULL,
+  `requireparts` int(10) unsigned NOT NULL,
+  `secret1` longblob,
+  `secretpath1` varchar(255) DEFAULT NULL,
+  `secret2` longblob,
+  `secretpath2` varchar(255) DEFAULT NULL,
+  `secret3` longblob,
+  `secretpath3` varchar(255) DEFAULT NULL,
+  `secret4` longblob,
+  `secretpath4` varchar(255) DEFAULT NULL,
+  `secret5` longblob,
+  `secretpath5` varchar(255) DEFAULT NULL,
+  `secret6` longblob,
+  `secretpath6` varchar(255) DEFAULT NULL,
+  `secret7` longblob,
+  `secretpath7` varchar(255) DEFAULT NULL,
+  `secret8` longblob,
+  `secretpath8` varchar(255) DEFAULT NULL,
+  `secret9` longblob,
+  `secretpath9` varchar(255) DEFAULT NULL,
+  `secret10` longblob,
+  `secretpath10` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`messageid`),
+  KEY `FK_tblmessage_1` (`senderid`),
+  CONSTRAINT `FK_tblmessage_1` FOREIGN KEY (`senderid`) REFERENCES `tbluser` (`userid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblmessage`
+--
+
+/*!40000 ALTER TABLE `tblmessage` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tblmessage` ENABLE KEYS */;
+
+
+--
+-- Definition of table `tbluser`
+--
+
+DROP TABLE IF EXISTS `tbluser`;
+CREATE TABLE `tbluser` (
+  `userid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(45) NOT NULL,
+  `lastname` varchar(45) NOT NULL,
+  `emailid` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  `dob` datetime NOT NULL,
+  `gender` varchar(45) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `contact` varchar(45) NOT NULL,
+  `profilepic` longblob,
+  `pofilename` varchar(45) DEFAULT NULL,
+  `status` varchar(45) NOT NULL,
+  PRIMARY KEY (`userid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbluser`
+--
+
+/*!40000 ALTER TABLE `tbluser` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbluser` ENABLE KEYS */;
+
+
+--
+-- Definition of table `tbluserfriend`
+--
+
+DROP TABLE IF EXISTS `tbluserfriend`;
+CREATE TABLE `tbluserfriend` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `messageid` int(10) unsigned NOT NULL,
+  `senderid` int(10) unsigned NOT NULL,
+  `receiverid` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_tbluserfriend_1` (`messageid`),
+  KEY `FK_tbluserfriend_2` (`senderid`),
+  KEY `FK_tbluserfriend_3` (`receiverid`),
+  CONSTRAINT `FK_tbluserfriend_1` FOREIGN KEY (`messageid`) REFERENCES `tblmessage` (`messageid`),
+  CONSTRAINT `FK_tbluserfriend_2` FOREIGN KEY (`senderid`) REFERENCES `tblmessage` (`senderid`),
+  CONSTRAINT `FK_tbluserfriend_3` FOREIGN KEY (`receiverid`) REFERENCES `tbluser` (`userid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbluserfriend`
+--
+
+/*!40000 ALTER TABLE `tbluserfriend` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbluserfriend` ENABLE KEYS */;
+
+
+
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
