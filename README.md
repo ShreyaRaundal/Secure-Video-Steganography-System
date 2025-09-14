@@ -87,10 +87,11 @@ Diagrams are available in the [`/docs/uml`](./docs/uml) folder:
 
 ## 👨‍💻 Contributors
 
-* **Athare Samruddhi Sunil**
+* **Raundal Shreya Narayan**
 * **Kakade Shubhangi Hanuman**
 * **Khan Umama Iliyas**
-* **Raundal Shreya Narayan**
+* * **Athare Samruddhi Sunil**
+
 
 📌 **Project Guide:** *Prof. R. N. Devray*
 
