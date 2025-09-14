@@ -60,11 +60,7 @@ Single-method security systems (only encryption or only steganography) are vulne
 4. **Configure Database Connection**
 
    * Edit `DBConnection.java`
-   * Update `URL`, `username`, and `password`
-
-5. **Run Application**
-
-   * Right-click `Main.java` → `Run As > Java Application`
+   * Update `URL`, `username:root`, and `password:root`
 
 ---
 
@@ -90,7 +86,7 @@ Diagrams are available in the [`/docs/uml`](./docs/uml) folder:
 * **Raundal Shreya Narayan**
 * **Kakade Shubhangi Hanuman**
 * **Khan Umama Iliyas**
-* * **Athare Samruddhi Sunil**
+* **Athare Samruddhi Sunil**
 
 
 📌 **Project Guide:** *Prof. R. N. Devray*
