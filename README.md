@@ -95,6 +95,7 @@ Diagrams are available in the [`/docs/uml`](./docs/uml) folder:
 
 ✨ *This project demonstrates how combining multiple security techniques can create a more reliable and resilient system for data protection.*
 
+<img width="751" height="486" alt="archi (1)" src="https://github.com/user-attachments/assets/9d13dd27-32c7-4213-b4f6-6d052f4b6047" />
 
 
 <img width="863" height="423" alt="image" src="https://github.com/user-attachments/assets/22d0bbba-b972-418f-a589-961bd27ac5d0" />
